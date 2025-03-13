@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <h1>Error <span th:text="${errorCode}"></span></h1>
+    <p th:if="${errorCode == 403}">Página no encontrada</p>
+    <p th:if="${errorCode == 404}">Página no encontrada</p>
+    <p th:if="${errorCode == 500}">Error interno del servidor</p>
+</body>
+</html>
