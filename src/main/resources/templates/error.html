@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
 <body>
-    <h1>Error <span th:text="${errorCode}"></span></h1>
-    <p th:if="${errorCode == 403}">Página no encontrada</p>
-    <p th:if="${errorCode == 404}">Página no encontrada</p>
-    <p th:if="${errorCode == 500}">Error interno del servidor</p>
+    <!-- Elementos decorativos -->
+    <div class="decorative-ball ball-1"></div>
+    <div class="decorative-ball ball-2"></div>
+    
+    <div class="error-container">
+        <!-- Icono según el error -->
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle" th:if="${errorCode == 403}"></i>
+            <i class="fas fa-search" th:if="${errorCode == 404}"></i>
+            <i class="fas fa-server" th:if="${errorCode == 500}"></i>
+            <i class="fas fa-exclamation-circle" th:unless="${errorCode == 403 || errorCode == 404 || errorCode == 500}"></i>
+        </div>
+        
+        <!-- Código de error -->
+        <h1 class="error-code" th:text="${errorCode}">Error</h1>
+        
+        <!-- Mensaje de error -->
+        <p class="error-message" th:if="${errorCode == 403}">Acceso denegado</p>
+        <p class="error-message" th:if="${errorCode == 404}">Página no encontrada</p>
+        <p class="error-message" th:if="${errorCode == 500}">Error interno del servidor</p>
+        <p class="error-message" th:unless="${errorCode == 403 || errorCode == 404 || errorCode == 500}">Ha ocurrido un error inesperado</p>
+        
+        <!-- Botón de retorno -->
+        <a href="/dashboard" class="return-button">
+            <i class="fas fa-home"></i>Volver al inicio
+        </a>
+    </div>
 </body>
 </html>

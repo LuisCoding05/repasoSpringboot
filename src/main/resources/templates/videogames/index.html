@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Listado de Videojuegos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/videogames/index.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+    <nav th:replace="~{plantillas/templates :: navbar(user=${user})}"></nav>
+    <!-- Elementos decorativos -->
+    <div class="decorative-ball ball-1"></div>
+    <div class="decorative-ball ball-2"></div>
+    
+    <div class="container">
+        <!-- Cabecera -->
+        <div class="header">
+            <h1>Catálogo de Videojuegos</h1>
+            <a th:href="@{/videogames/create}" class="add-new">
+                <i class="fas fa-plus"></i>Añadir Videojuego
+            </a>
+        </div>
+        
+        <!-- Grid de videojuegos -->
+        <div class="games-grid" th:if="${!videogames.empty}">
+            <!-- Tarjeta de videojuego (repetida para cada juego) -->
+            <div class="game-card" th:each="game : ${videogames}">
+                <!-- Imagen del juego -->
+                <img th:src="@{${game.portrait}}" alt="Imagen del videojuego" class="game-image">
+                
+                <div class="game-info">
+                    <!-- Título del juego -->
+                    <h3 class="game-title" th:text="${game.title}">Nombre del Juego</h3>
+                    
+                    <!-- Plataformas -->
+                    <div class="badge-container">
+                        <span class="badge" th:each="platform : ${game.platforms}" th:text="${platform.name}">Plataforma</span>
+                    </div>
+                    
+                    <!-- Géneros -->
+                    <div class="badge-container">
+                        <span class="badge" th:each="genre : ${game.genres}" th:text="${genre.name}">Género</span>
+                    </div>
+                    
+                    <!-- Detalles del juego -->
+                    <div class="game-details">
+                        <p><i class="fas fa-building"></i><span th:text="${game.developer.name}">Desarrollador</span></p>
+                        <p><i class="fas fa-calendar-alt"></i><span th:text="${#temporals.format(game.releaseDate, 'dd/MM/yyyy')}">Fecha de lanzamiento</span></p>
+                    </div>
+                    
+                    <!-- Precio -->
+                    <div class="game-price" th:text="${#numbers.formatDecimal(game.price, 1, 2) + ' €'}">59.99 €</div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="card-actions">
+                        <a th:href="@{'/videogames/show/' + ${game.id}}" class="btn btn-view">
+                            <i class="fas fa-eye"></i>Ver
+                        </a>
+                        <a th:href="@{'/videogames/edit/' + ${game.id}}" class="btn btn-edit" sec:authorize="hasRole('ADMIN')">
+                            <i class="fas fa-edit"></i>Editar
+                        </a>
+                        
+                        <!-- Después (seguro) -->
+                    <form sec:authorize="hasRole('ADMIN')" th:action="@{/videogames/delete/{id}(id=${game.id})}" method="post">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-delete"><i class="fas fa-trash"></i>Eliminar</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mensaje cuando no hay videojuegos -->
+        <div class="no-games" th:if="${videogames.empty}">
+            <i class="fas fa-gamepad"></i>
+            <h2>No hay videojuegos disponibles</h2>
+            <p>¡Comienza añadiendo tu primer videojuego a la colección!</p>
+            <a th:href="@{/videogames/create}" class="add-new">
+                <i class="fas fa-plus"></i>Añadir Videojuego
+            </a>
+        </div>
+    </div>
+</body>
+</html>

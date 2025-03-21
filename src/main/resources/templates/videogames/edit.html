@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="dark-theme">
+<head>
+    <title>Editar Videojuego</title>
+    <link rel="stylesheet" th:href="@{/css/videogames/editCreate.css}">
+</head>
+<body>
+    <h1>Editar Videojuego</h1>
+    <form th:action="@{/videogames/edit/{id}(id=${videogame.id})}" th:object="${videogame}" method="post">
+        <div class="form-group">
+            <label>Portada:</label>
+            <input type="text" th:field="*{portrait}" required />
+        </div>
+        <!-- Título -->
+        <div class="form-group">
+            <label>Título:</label>
+            <input type="text" th:field="*{title}" required />
+        </div>
+
+        <!-- Fecha y Precio -->
+        <div class="form-group">
+            <label>Fecha de lanzamiento:</label>
+            <input type="date" th:field="*{releaseDate}" required />
+
+            <label>Precio:</label>
+            <input type="number" step="0.01" th:field="*{price}" required />
+        </div>
+
+        <!-- Desarrollador -->
+        <div class="form-group">
+            <label>Desarrollador:</label>
+            <select th:field="*{developer}">
+                <option value="">Selecciona un desarrollador</option>
+                <option 
+                    th:each="dev : ${developers}" 
+                    th:value="${dev.id}" 
+                    th:text="${dev.name}"
+                    th:selected="${videogame.developer?.id == dev.id}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Géneros (Checkboxes) -->
+        <div class="form-group">
+            <label>Géneros:</label>
+            <div class="checkbox-group">
+                <div th:each="genre : ${genres}" class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        th:field="*{genres}" 
+                        th:value="${genre.id}"
+                        th:checked="${#lists.contains(videogame.genres, genre)}"
+                    />
+                    <span th:text="${genre.name}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plataformas (Checkboxes) -->
+        <div class="form-group">
+            <label>Plataformas:</label>
+            <div class="checkbox-group">
+                <div th:each="platform : ${platforms}" class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        th:field="*{platforms}" 
+                        th:value="${platform.id}"
+                        th:checked="${#lists.contains(videogame.platforms, platform)}"
+                    />
+                    <span th:text="${platform.name}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div>
+            <button type="submit">Guardar Cambios</button>
+            <a href="/videogames">Cancelar</a>
+        </div>
+    </form>
+</body>
+</html>

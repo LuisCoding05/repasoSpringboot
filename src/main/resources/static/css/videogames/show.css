@@ -1,0 +1,183 @@
+/* Estilos generales */
+:root {
+    --dark-bg: #121212;
+    --card-bg: #1e1e2e;
+    --primary-color: #9d4edd;
+    --secondary-color: #6a0dad;
+    --text-color: #f0f0f0;
+    --text-muted: #b0b0b0;
+    --accent-color: #c77dff;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  body {
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+
+    background:
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+        background-color: #131313;
+    background-size: 20px 20px;
+  }
+  
+  /* Contenedor principal */
+  .game-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Contenedor de la imagen */
+  .image-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .game-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--primary-color);
+    transition: transform 0.3s;
+  }
+  
+  .game-image:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Contenedor de detalles */
+  .game-details {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .game-title {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Metadatos del juego */
+  .game-meta {
+    margin-bottom: 2rem;
+  }
+  
+  .meta-item {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .meta-item strong {
+    min-width: 120px;
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+  }
+  
+  /* Badges para plataformas y géneros */
+  .badge {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+  }
+  
+  .badge:hover {
+    background-color: var(--primary-color);
+  }
+  
+  /* Botones de acción */
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-warning {
+    background-color: #ff9800;
+    color: white;
+  }
+  
+  .btn-warning:hover {
+    background-color: #ffb74d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-danger {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-danger:hover {
+    background-color: #ef5350;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Responsive design para pantallas de 768px o más */
+  @media (max-width: 768px) {
+    .game-container {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 2rem;
+    }
+  
+    .image-container {
+      width: 40%;
+      margin-bottom: 0;
+      margin-right: 2rem;
+    }
+  
+    .game-details {
+      width: 60%;
+      padding: 0;
+    }
+  }

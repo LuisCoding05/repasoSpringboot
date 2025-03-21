@@ -18,6 +18,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/videogames/edit/**", "/videogames/create/**", "/videogames/delete/**").hasRole("ADMIN")
+                .requestMatchers("/videogames/show/**","/videogames/list", "/videogames", "/dashboard").hasAnyRole("ADMIN", "USER")
                 .requestMatchers("/login", "/register", "/css/**").permitAll()
                 .anyRequest().authenticated()
             )

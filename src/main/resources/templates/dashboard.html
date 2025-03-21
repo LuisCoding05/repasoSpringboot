@@ -5,21 +5,11 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
 </head>
 <body>
+    <nav th:replace="~{plantillas/templates :: navbar(user=${user})}"></nav>
     <div class="dashboard-container">
-        <!-- Sidebar mejorado -->
-        <div class="sidebar">
-            <h2>Mi Aplicación</h2>
-            <nav>
-                <ul>
-                    <li><a th:href="@{/dashboard}"><i class="fas fa-home"></i>Inicio</a></li>
-                    <li><a th:href="@{/Videogames}"><i class="fas fa-chart-line"></i>Videojuegos</a></li>
-                    <li><a th:href="@{/profile}"><i class="fas fa-user"></i>Perfil</a></li>
-                    <li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>Cerrar Sesión</a></li>
-                </ul>
-            </nav>
-        </div>
         
         <!-- Contenido principal mejorado -->
         <div class="main-content">
@@ -65,7 +55,7 @@
             
             <!-- Información de usuario mejorada -->
             <div class="user-info">
-                <h2>Bienvenido, <span th:text="${user.name}">Usuario</span>!</h2>
+                <h2>Bienvenido, <span th:text="${user.name}"></span> <span th:text="${user.lastName}">Usuario</span>!</h2>
                 <p><i class="fas fa-user"></i>Usuario: <span th:text="${user.username}">username</span></p>
                 <p><i class="fas fa-envelope"></i>Email: <span th:text="${user.email}">email@ejemplo.com</span></p>
                 <p><i class="fas fa-clock"></i>Última conexión: <span>Hoy, 14:30</span></p>

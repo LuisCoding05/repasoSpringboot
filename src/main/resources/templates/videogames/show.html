@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${videogame.title}">Detalle del videojuego</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/videogames/show.css}">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+    <div th:replace="~{plantillas/templates :: navbar(user=${user})}"></div>
+    
+    <!-- CONTENEDOR PRINCIPAL CORRECTO -->
+    <div class="game-container">
+        <!-- CONTENEDOR IMAGEN (HIJO DIRECTO) -->
+        <div class="image-container">
+            <img class="game-image" th:src="${videogame.portrait}" alt="Imagen del videojuego">
+        </div>
+        
+        <!-- CONTENEDOR DETALLES (HERMANO DE IMAGEN) -->
+        <div class="game-details">
+            <h1 class="game-title" th:text="${videogame.title}">Título del juego</h1>
+            
+            <div class="game-meta">
+                <div class="meta-item">
+                    <strong>Desarrollador:</strong> <span th:text="${videogame.developer.name}">Nintendo</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Plataformas:</strong> 
+                    <p class="badge" th:each="platform : ${videogame.platforms}" th:text="${platform.name}">Plataforma</p>
+                </div>
+                <div class="meta-item">
+                    <strong>Lanzamiento:</strong> <span th:text="${#temporals.format(videogame.releaseDate, 'dd/MM/yyyy')}">01/01/2023</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Géneros:</strong> <p class="badge" th:each="genre : ${videogame.genres}" th:text="${genre.name}">Género</p>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a class="btn btn-primary" th:href="@{/videogames/list}">Volver</a>
+                <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" th:href="@{/videogames/edit/} + ${videogame.id}">Editar</a>
+                <form sec:authorize="hasRole('ADMIN')" th:action="@{/videogames/delete/{id}(id=${videogame.id})}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                    <button class="btn btn-danger" type="submit">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

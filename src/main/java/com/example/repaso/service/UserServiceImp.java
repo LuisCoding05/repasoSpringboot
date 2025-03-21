@@ -62,13 +62,18 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.findByUsername(username)
+            .orElseGet(() -> userDao.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado")));
 
-        Optional<User> userFoundedByUsername = userDao.findByUsername(username);
-        if (!userFoundedByUsername.isPresent()) {
-            return userDao.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-        }
-        return userDao.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        return org.springframework.security.core.userdetails.User.builder()
+            .username(user.getUsername())
+            .password(user.getPassword())
+            .roles(user.getRol().name())
+            .build();
     }
+
+    
     
 
 }

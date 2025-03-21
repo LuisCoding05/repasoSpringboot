@@ -1,0 +1,155 @@
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        /* Contenedor de error */
+        .error-container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(22, 20, 41, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .error-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        /* Código de error */
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: transparent;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .error-code::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+        
+        /* Mensaje de error */
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        
+        /* Botón de retorno */
+        .return-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .return-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .return-button i {
+            margin-right: 8px;
+        }
+        
+        /* Elementos decorativos */
+        .decorative-ball {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            filter: blur(70px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .ball-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+        }
+        
+        .ball-2 {
+            width: 350px;
+            height: 350px;
+            bottom: -150px;
+            left: -100px;
+        }
+        
+        /* Ícono de error */
+        .error-icon {
+            font-size: 4rem;
+            color: #764ba2;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Animaciones */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 2rem;
+            }
+            
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-message {
+                font-size: 1.2rem;
+            }
+        }

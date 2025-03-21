@@ -1,0 +1,33 @@
+<!-- fragments/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- En fragments/navbar.html -->
+    <nav th:fragment="navbar(user)" class="custom-navbar">
+        <div class="navbar-container">
+        <a class="navbar-logo" href="/">My App</a>
+        <div class="navbar-menu">
+            <ul class="navbar-items">
+                <li><a th:href="@{/dashboard}"><i class="fas fa-home"></i></a></li>
+                <li><a th:href="@{/videogames/list}"><i class="fas fa-chart-line"></i></a></li>
+
+                <li class="navbar-dropdown" th:if="${user != null}">
+                    <a class="navbar-link dropdown-trigger" href="#">
+                    <span th:text="${user.username}">Username</span>
+                    <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a class="dropdown-item" th:href="@{/login?logout}">Logout</a></li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+        </div>
+    </nav>
+</body>
+</html>
